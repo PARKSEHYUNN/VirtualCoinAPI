@@ -5,7 +5,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 
 // swagger 설정
-const swaggerOption = {
+const swaggerSpecs = {
     swaggerDefinition: {
         openapi: "3.0.0",
         info: {
@@ -31,12 +31,13 @@ const swaggerOption = {
             }
         ],
         paths: {
-            "/api/user/": require("./swagger/user/get")
+            "/api/user/": require("./swagger/user/get"),
+            "/api/user/{id}": require("./swagger/user/get_id")
         }
     },
     apis: ["./router/*,js"]
 };
 
-const specs = swaggerJsdoc(swaggerOption);
+const specs = swaggerJsdoc(swaggerSpecs);
 
 module.exports = {swaggerUi, specs};

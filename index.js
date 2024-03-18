@@ -3,6 +3,7 @@
 // 모듈 선언
 const express = require("express");
 const path = require("path");
+const dotenv = require("dotenv").config();  
 
 // 함수 선언
 const {console} = require("./function");
@@ -23,7 +24,7 @@ const apiRouter = require("./router/api");
 app.use("/api", apiRouter);
 
 // swagger 설정
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, {swaggerOptions: {operationsSorter: "method"}}));
 
 // 오류 페이지 설정
 app.use((req, res) => {
