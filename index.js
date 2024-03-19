@@ -7,7 +7,7 @@ const dotenv = require("dotenv").config();
 
 // 함수 선언
 const {console} = require("./function");
-const {swaggerUi, specs} = require("./swagger");
+const {swaggerUi, specs, swaggerSetting} = require("./swagger");
 
 // 서버 선언
 const app = express();
@@ -24,7 +24,7 @@ const apiRouter = require("./router/api");
 app.use("/api", apiRouter);
 
 // swagger 설정
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, {swaggerOptions: {operationsSorter: "method"}}));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, {swaggerOptions: {operationsSorter: swaggerSetting}}));
 
 // 오류 페이지 설정
 app.use((req, res) => {

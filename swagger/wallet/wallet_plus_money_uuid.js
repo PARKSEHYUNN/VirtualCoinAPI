@@ -1,21 +1,37 @@
-// /swagger/user/get.js
+// /swagger/wallet/wallet_plus_money_uuid.js
 
 module.exports = {
-    get: {
-        tags: ["User"],
-        summary: "특정 사용자 조회",
-        description: "특정 사용자의 데이터를 조회합니다.",
+    post: {
+        tags: ["Wallet"],
+        summary: "특정 사용자 돈 증가",
+        description: "특정 사용자의 돈이 증가합니다.",
         parameters: [
             {
-                name: "id",
+                name: "uuid",
                 in: "path",
                 required: "true",
-                description: "사용자 id",
+                description: "사용자 UUID",
                 schema: {
-                    type: "integer"
+                    type: "string"
                 }
             }
         ],
+        requestBody: {
+            required: "true",
+            content: {
+                "application/x-www-form-urlencoded": {
+                    schema: {
+                        type: "object",
+                        properties: {
+                            "value": {
+                                type: "integer",
+                                description: "증가 금액"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         responses: {
             "200": {
                 description: "Success",
@@ -28,11 +44,25 @@ module.exports = {
                                     type: "boolean",
                                     example: "true"
                                 },
-                                users: {
+                                user: {
                                     type: "object",
                                     example: {
                                         id: 1,
-                                        username: "sadariel",
+                                        money: 10000,
+                                        coins: [
+                                            {
+                                                name: "슬라임 코인",
+                                                count: 5,
+                                                value: 25000,
+                                                uuid: "639456c5-f7cb-4d8a-9f22-c6a23da27bc2"
+                                            },
+                                            {
+                                                name: "핑크빈 코인",
+                                                count: 1,
+                                                value: 100000,
+                                                uuid: "559f5173-dcbb-40af-a247-8d981f071ef8"
+                                            }
+                                        ],
                                         uuid: "639456c5-f7cb-4d8a-9f22-c6a23da27bc2"
                                     }
                                 }

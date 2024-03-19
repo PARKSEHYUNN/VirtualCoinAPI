@@ -1,4 +1,4 @@
-// /swagger/user/get.js
+// /swagger/user/user.js
 
 module.exports = {
     get: {
@@ -102,20 +102,16 @@ module.exports = {
                                     type: "boolean",
                                     example: "true"
                                 },
-                                users: {
+                                user: {
                                     type: "object",
-                                    example: [
-                                        {
-                                            id: 1,
-                                            username: "sadariel",
-                                            uuid: "639456c5-f7cb-4d8a-9f22-c6a23da27bc2"
-                                        },
-                                        {
-                                            id: 2,
-                                            username: "navylimes",
-                                            uuid: "547c816f-39fe-4c21-a774-5e7710f766eb"
-                                        }
-                                    ]
+                                    example: {
+                                        id: 1,
+                                        username: "sadariel",
+                                        password_key: "Pn9Jq7K58jC98dG/+fmmP8hlVi5Wbz+DKTpyuVVmEY7LnrhYoV5QSCI6gg6jy5VUBDT3E+F6ug3Xf0NeyAZXQw==",
+                                        password_salt: "Sq2aX2UPeAwqdGYZgvW/sibT+2sRoIUPTIAcuJ7eXpjIIyRL7tOmM8FKAhKhakoEGyR9k3w6URGU+QH7gXA1fw==",
+                                        email: "sadariel3@gmail.com",
+                                        uuid: "639456c5-f7cb-4d8a-9f22-c6a23da27bc2"
+                                    }
                                 }
                             }
                         }

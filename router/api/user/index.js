@@ -11,15 +11,27 @@ const userController = require("./user.controller.js");
 router.get("/", userController.get);
 
 /**
- * @path {GET} http://127.0.0.1/api/user/{id}
+ * @path {GET} http://127.0.0.1/api/user/{uuid}
  * @description 특정 사용자 조회
  */
-router.get("/:id", userController.get_id);
+router.get("/:uuid", userController.get_uuid);
 
 /**
  * @path {POST} http://127.0.0.1/api/user
  * @description 사용자 추가
  */
 router.post("/", userController.post);
+
+/**
+ * @path {PATCH} http://127.0.0.1/api/user/{uuid}
+ * @description 특정 사용자 수정
+ */
+router.patch("/:uuid", userController.patch);
+
+/**
+ * @path {DELETE} http://127.0.0.1/api/user/{uuid}
+ * @description 특정 사용자 삭제
+ */
+router.delete("/:uuid", userController.delete);
 
 module.exports = router;

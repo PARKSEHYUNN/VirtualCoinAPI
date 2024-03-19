@@ -31,13 +31,31 @@ const swaggerSpecs = {
             }
         ],
         paths: {
-            "/api/user/": require("./swagger/user/get"),
-            "/api/user/{id}": require("./swagger/user/get_id")
+            "/api/user/": require("./swagger/user/user"),
+            "/api/user/{uuid}": require("./swagger/user/user_uuid"),
+            "/api/coin/": require("./swagger/coin/coin"),
+            "/api/coin/{uuid}": require("./swagger/coin/coin_uuid"),
+            "/api/wallet/{uuid}": require("./swagger/wallet/wallet_uuid"),
+            "/api/wallet/plus/coin/{uuid}": require("./swagger/wallet/wallet_plus_coin_uuid"),
+            "/api/wallet/plus/money/{uuid}": require("./swagger/wallet/wallet_plus_money_uuid"),
+            "/api/wallet/minus/coin/{uuid}": require("./swagger/wallet/wallet_minus_coin_uuid"),
+            "/api/wallet/minus/money/{uuid}": require("./swagger/wallet/wallet_minus_money_uuid")
         }
     },
     apis: ["./router/*,js"]
 };
 
+let swaggerSetting = (a, b) => {
+    var methodsOrder = ["get", "post", "put", "patch", "delete", "options", "trace"];
+    var result = methodsOrder.indexOf(a.get("method")) - methodsOrder.indexOf(b.get("method"));
+
+    if (result === 0) {
+        result = a.get("path").localeCompare(b.get("path"));
+    }
+
+    return result;
+}
+
 const specs = swaggerJsdoc(swaggerSpecs);
 
-module.exports = {swaggerUi, specs};
+module.exports = {swaggerUi, specs, swaggerSetting};

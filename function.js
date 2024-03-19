@@ -66,6 +66,34 @@ exports.checkDatas = (stat, datas) => {
     return {result: true};
 }
 
+exports.checkDatasPatch = (stat, datas) => {
+    // 변수 선언
+    let dataKey = Object.keys(datas);
+    let sql = `UPDATE ${stat} SET `;
+    let dataArray = [];
+
+    for(let i = 0; i < dataKey.length; i ++){
+        let data = datas[dataKey[i]];
+        if(data != "" && data != undefined){
+            console.log(dataKey[i], data)
+
+            if(!this.checkSyntax(dataKey[i], data))
+                return {reslt: false, error: errCode[stat][dataKey[i]]["syntax"]};
+
+            sql += `${dataKey[i]} = ?,`;
+            dataArray.push(data);
+        }
+    }
+
+    // SQL문 수정
+    if(sql[sql.length - 1] == ",")
+        sql = sql.slice(0, -1);
+    sql += ` WHERE uuid = ?;`;
+
+    // 결과 반환
+    return {result: true, data: {sql: sql, dataArray: dataArray}};
+}
+
 /**
  * 해당 데이터에 맞는 규칙을 적용후 결과 반환
  * @param {string} dataKey 데이터 이름
@@ -79,8 +107,8 @@ exports.checkSyntax = (dataKey, data) => {
     if(dataKey == "username") regExp = /^[a-z|A-Z|0-9]+$/;
     else if(dataKey == "password") return true;
     else if(dataKey == "email") regExp = /^[a-z|A-Z|0-9|.@]+$/;
-    else return false;
-    
+    else return true;
+
     if(regExp.test(data)) return true;
     else return false;
 };
@@ -97,7 +125,6 @@ exports.checkOverlap = (stat, datas, row) => {
         let dataKeys = Object.keys(row[i]);
 
         for(j = 0; j < dataKeys.length; j ++){
-            console.log(stat, datas[dataKeys[j]])
             if(row[i][dataKeys[j]] == datas[dataKeys[j]])
                 return {result: false, error: errCode[stat][dataKeys[j]]["overlap"]};
         }
