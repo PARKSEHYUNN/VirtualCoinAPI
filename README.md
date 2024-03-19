@@ -1,4 +1,4 @@
-# VitrualCoinAPI
+# VirtualCoinAPI
 
 ## API LIST
  * User
